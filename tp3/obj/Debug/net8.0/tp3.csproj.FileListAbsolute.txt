@@ -1,11 +1,3 @@
-C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\tp3.csproj.AssemblyReference.cache
-C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\tp3.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\tp3.AssemblyInfoInputs.cache
-C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\tp3.AssemblyInfo.cs
-C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\tp3.csproj.CoreCompileInputs.cache
-C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\tp3.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\tp3.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\tp3.sourcelink.json
 C:\Users\julie\source\repos\tp3\tp3\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\julie\source\repos\tp3\tp3\bin\Debug\net8.0\appsettings.json
 C:\Users\julie\source\repos\tp3\tp3\bin\Debug\net8.0\tp3.exe
@@ -89,6 +81,14 @@ C:\Users\julie\source\repos\tp3\tp3\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.W
 C:\Users\julie\source\repos\tp3\tp3\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\julie\source\repos\tp3\tp3\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\julie\source\repos\tp3\tp3\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\tp3.csproj.AssemblyReference.cache
+C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\tp3.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\tp3.AssemblyInfoInputs.cache
+C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\tp3.AssemblyInfo.cs
+C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\tp3.csproj.CoreCompileInputs.cache
+C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\tp3.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\tp3.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\tp3.sourcelink.json
 C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\julie\source\repos\tp3\tp3\obj\Debug\net8.0\staticwebassets\msbuild.tp3.Microsoft.AspNetCore.StaticWebAssets.props
