@@ -9,24 +9,26 @@ using Microsoft.EntityFrameworkCore;
 namespace tp3.Models.EntityFramework
 {
     [Table("t_j_notation_not")]
+    [PrimaryKey(nameof(UtilisateurId), nameof(SerieId))]
+
     public class Notation
-        {
-            [Key, Column("utl_id", Order = 0)]
-            public int UtilisateurId { get; set; }
+    {
+        [Column("utl_id")]
+        public int UtilisateurId { get; set; }
 
-            [Key, Column("ser_id", Order = 1)]
-            public int SerieId { get; set; }
+        [Column("ser_id")]
+        public int SerieId { get; set; }
 
-            [Column("not_note")]
-            [Range(0, 5)]
-            public int Note { get; set; }
+        [Column("not_note")]
+        [Range(0, 5, ErrorMessage = "Value for {0} must be between {1} and {2}."), Required]
+        public required int Note { get; set; }
 
-            // Propriétés de navigation vers Utilisateur et Serie
-            [ForeignKey("UtilisateurId")]
-            public Utilisateur UtilisateurNotant { get; set; }
+        [ForeignKey(nameof(UtilisateurId))]
+        [InverseProperty(nameof(Utilisateur.NotesUtilisateur))]
+        public virtual Utilisateur UtilisateurNotant { get; set; } = null!;
 
-            [ForeignKey("SerieId")]
-            public Serie SerieNotee { get; set; }
-        }
-
+        [ForeignKey(nameof(SerieId))]
+        [InverseProperty(nameof(Serie.NotesSerie))]
+        public virtual Serie SerieNotee { get; set; } = null!;
+    }
 }

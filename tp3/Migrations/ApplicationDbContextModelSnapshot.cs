@@ -3,8 +3,8 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MyApplication.Data;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using tp3.Models.Data;
 
 #nullable disable
 
@@ -18,7 +18,7 @@ namespace tp3.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("public")
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -27,13 +27,11 @@ namespace tp3.Migrations
                 {
                     b.Property<int>("UtilisateurId")
                         .HasColumnType("integer")
-                        .HasColumnName("utl_id")
-                        .HasColumnOrder(0);
+                        .HasColumnName("utl_id");
 
                     b.Property<int>("SerieId")
                         .HasColumnType("integer")
-                        .HasColumnName("ser_id")
-                        .HasColumnOrder(1);
+                        .HasColumnName("ser_id");
 
                     b.Property<int>("Note")
                         .HasColumnType("integer")
@@ -68,7 +66,8 @@ namespace tp3.Migrations
                         .HasColumnName("ser_nbsaisons");
 
                     b.Property<string>("Network")
-                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("ser_network");
 
                     b.Property<string>("Resume")
@@ -77,7 +76,8 @@ namespace tp3.Migrations
 
                     b.Property<string>("Titre")
                         .IsRequired()
-                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
                         .HasColumnName("ser_titre");
 
                     b.HasKey("SerieId");
@@ -97,11 +97,11 @@ namespace tp3.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UtilisateurId"));
 
                     b.Property<string>("CodePostal")
-                        .HasColumnType("char(5)")
+                        .HasColumnType("character(5)")
                         .HasColumnName("utl_cp");
 
-                    b.Property<DateTime>("DateCreation")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("DateCreation")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("utl_datecreation");
 
                     b.Property<float?>("Latitude")
@@ -114,36 +114,43 @@ namespace tp3.Migrations
 
                     b.Property<string>("Mail")
                         .IsRequired()
-                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
                         .HasColumnName("utl_mail");
 
                     b.Property<string>("Mobile")
-                        .HasColumnType("char(10)")
+                        .HasColumnType("character(10)")
                         .HasColumnName("utl_mobile");
 
                     b.Property<string>("Nom")
-                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("utl_nom");
 
                     b.Property<string>("Pays")
-                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("utl_pays");
 
                     b.Property<string>("Prenom")
-                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("utl_prenom");
 
                     b.Property<string>("Pwd")
                         .IsRequired()
-                        .HasColumnType("varchar(64)")
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)")
                         .HasColumnName("utl_pwd");
 
                     b.Property<string>("Rue")
-                        .HasColumnType("varchar(200)")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
                         .HasColumnName("utl_rue");
 
                     b.Property<string>("Ville")
-                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("utl_ville");
 
                     b.HasKey("UtilisateurId");

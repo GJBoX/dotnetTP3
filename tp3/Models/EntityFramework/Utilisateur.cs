@@ -10,50 +10,56 @@ namespace tp3.Models.EntityFramework
     public class Utilisateur
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("utl_id")]
         public int UtilisateurId { get; set; }
 
-        [Column("utl_nom", TypeName = "varchar(50)")]
+        [Column("utl_nom")]
+        [StringLength(50)]
         public string? Nom { get; set; }
 
-        [Column("utl_prenom", TypeName = "varchar(50)")]
+        [Column("utl_prenom")]
+        [StringLength(50)]
         public string? Prenom { get; set; }
 
-        [Column("utl_mobile", TypeName = "char(10)")]
+        [Column("utl_mobile", TypeName = "character(10)")]
+        [RegularExpression(@"^0[0-9]{9}$", ErrorMessage = "Veuillez mettre un numero de telephone valide !")]
         public string? Mobile { get; set; }
 
-        [Required]
-        [Column("utl_mail", TypeName = "varchar(100)")]
-        public string Mail { get; set; }
+        [Column("utl_mail")]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "La longueur d’un email doit être comprise entre 6 et 100 caractères."), EmailAddress, Required]
+        public string Mail { get; set; } = null!;
 
+        [Column("utl_pwd")]
+        [StringLength(64, MinimumLength = 6, ErrorMessage = "Le mot de passe doit contenir entre 6 et 64 caractères.")]
+        [RegularExpression("^(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_])[A-Za-z\\d\\W_]{6,10}$", ErrorMessage = "Le mot de passe doit contenir entre 6 et 10 caractères, avec au moins 1 lettre majuscule, 1 chiffre et 1 caractère spécial.")]
         [Required]
-        [Column("utl_pwd", TypeName = "varchar(64)")]
-        public string Pwd { get; set; }
+        public required string Pwd { get; set; }
 
-        [Column("utl_rue", TypeName = "varchar(200)")]
+        [Column("utl_rue")]
+        [StringLength(200)]
         public string? Rue { get; set; }
 
-        [Column("utl_cp", TypeName = "char(5)")]
+        [Column("utl_cp", TypeName = "character(5)")]
+        [RegularExpression(@"^\d{5}$", ErrorMessage = "Le champ doit contenir exactement 5 chiffres.")]
         public string? CodePostal { get; set; }
 
-        [Column("utl_ville", TypeName = "varchar(50)")]
+        [Column("utl_ville")]
+        [StringLength(50)]
         public string? Ville { get; set; }
 
-        [Column("utl_pays", TypeName = "varchar(50)")]
-        public string? Pays { get; set; } = "France";
+        [Column("utl_pays")]
+        [StringLength(50)]
+        public string? Pays { get; set; }
 
-        [Column("utl_latitude", TypeName = "real")]
+        [Column("utl_latitude")]
         public float? Latitude { get; set; }
 
-        [Column("utl_longitude", TypeName = "real")]
+        [Column("utl_longitude")]
         public float? Longitude { get; set; }
 
-        [Required]
-        [Column("utl_datecreation", TypeName = "date")]
-        public DateTime DateCreation { get; set; } = DateTime.Now;
+        [Column("utl_datecreation")]
+        public DateTime? DateCreation { get; set; } // Valeur par défaut définie dans OnModelCreating
 
-        // Propriété de navigation vers Notation
-        public ICollection<Notation> NotesUtilisateur { get; set; }
+        public virtual ICollection<Notation> NotesUtilisateur { get; set; } = new List<Notation>();
     }
 }
