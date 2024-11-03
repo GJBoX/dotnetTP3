@@ -1,0 +1,23 @@
+[33mcommit e0b6103cc8991d955b7a344d03fa37d51b96a64b[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: GJBoX <julien.buc2@gmail.com>
+Date:   Sun Nov 3 17:50:57 2024 +0100
+
+    Partie 1
+
+[33mcommit 11b91cfe79953d8587b3d4b709ded742465b7748[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: GJBoX <julien.buc2@gmail.com>
+Date:   Fri Sep 27 14:59:58 2024 +0200
+
+    gestion erreur migration *dotnet clean* pouyr fermer toutes les isntances
+
+[33mcommit 0a4b2f6f0b13a9c60e0c3e23236032ae135383d4[m
+Author: GJBoX <julien.buc2@gmail.com>
+Date:   Fri Sep 27 14:49:24 2024 +0200
+
+    couche modele
+
+[33mcommit 1398eac394e802ec1a8abc1e0a85c630866502fe[m
+Author: GJBoX <julien.buc2@gmail.com>
+Date:   Fri Sep 27 09:51:21 2024 +0200
+
+    first commit
