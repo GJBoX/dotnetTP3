@@ -94,6 +94,22 @@
   },
   {
     "ContainingType": "tp3.Controllers.UtilisateursController",
+    "Method": "DeleteUtilisateur",
+    "RelativePath": "api/Utilisateurs/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "tp3.Controllers.UtilisateursController",
     "Method": "GetUtilisateurByEmail",
     "RelativePath": "api/Utilisateurs/email/{email}",
     "HttpMethod": "GET",

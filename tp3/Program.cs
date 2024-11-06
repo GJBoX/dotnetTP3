@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using tp3.Models.Data;
+using tp3.Models.DataManager;
+using tp3.Models.EntityFramework;
+using tp3.Models.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(e=>
     e.UseNpgsql(builder.Configuration.GetConnectionString("SeriesDbContextPgsql")));
+builder.Services.AddScoped<IDataRepository<Utilisateur>, UtilisateurManager>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

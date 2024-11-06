@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using tp3.Models.Data;
 using tp3.Models.DataManager;
 using tp3.Models.EntityFramework;
+using tp3.Models.Repository;
 
 namespace tp3.Controllers
 {
@@ -17,18 +18,19 @@ namespace tp3.Controllers
     public class UtilisateursController : ControllerBase
     {
         // private readonly ApplicationDbContext _context;
-        private readonly UtilisateurManager utilisateurManager;
+        //private readonly UtilisateurManager utilisateurManager;
+        private readonly IDataRepository<Utilisateur> dataRepository;
 
-        public UtilisateursController(UtilisateurManager userManager)
+        public UtilisateursController(IDataRepository<Utilisateur> dataRepo)
         {
-            utilisateurManager = userManager;
+            dataRepository = dataRepo;
         }
 
         // GET: api/Utilisateurs
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Utilisateur>>> GetUtilisateurs()
         {
-            return utilisateurManager.GetAll();
+            return dataRepository.GetAll();
         }
 
         // GET: api/Utilisateurs/5
@@ -36,7 +38,7 @@ namespace tp3.Controllers
         public async Task<ActionResult<Utilisateur>> GetUtilisateur(int id)
         {
             // var utilisateur = await _context.Utilisateurs.FindAsync(id);
-            var utilisateur = utilisateurManager.GetById(id);
+            var utilisateur = dataRepository.GetById(id);
 
             if (utilisateur == null)
             {
@@ -51,7 +53,7 @@ namespace tp3.Controllers
         public async Task<ActionResult<Utilisateur>> GetUtilisateurByEmail(string email)
         {
             // var utilisateur = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.Mail.ToLower() == email.ToLower());
-            var utilisateur = utilisateurManager.GetByString(email);
+            var utilisateur = dataRepository.GetByString(email);
 
             if (utilisateur == null)
             {
@@ -72,7 +74,7 @@ namespace tp3.Controllers
             }
 
             // _context.Entry(utilisateur).State = EntityState.Modified;
-            var userToUpdate = utilisateurManager.GetById(id);
+            var userToUpdate = dataRepository.GetById(id);
 
             //try
             //{
@@ -98,7 +100,7 @@ namespace tp3.Controllers
             }
             else
             {
-                utilisateurManager.Update(userToUpdate.Value, utilisateur);
+                dataRepository.Update(userToUpdate.Value, utilisateur);
                 return NoContent();
             }
         }
@@ -121,7 +123,7 @@ namespace tp3.Controllers
                 return BadRequest(ModelState);
             }
 
-            utilisateurManager.Add(utilisateur);
+            dataRepository.Add(utilisateur);
 
             return CreatedAtAction("GetUtilisateur", new { id = utilisateur.UtilisateurId }, utilisateur);
         }
@@ -131,7 +133,7 @@ namespace tp3.Controllers
         public async Task<IActionResult> DeleteUtilisateur(int id)
         {
             //var utilisateur = await _context.Utilisateurs.FindAsync(id);
-            var utilisateur = utilisateurManager.GetById(id);
+            var utilisateur = dataRepository.GetById(id);
 
             if (utilisateur == null)
             {
@@ -140,7 +142,7 @@ namespace tp3.Controllers
 
             //_context.Utilisateurs.Remove(utilisateur);
             //await _context.SaveChangesAsync();
-            utilisateurManager.Delete(utilisateur.Value);
+            dataRepository.Delete(utilisateur.Value);
 
             return NoContent();
         }

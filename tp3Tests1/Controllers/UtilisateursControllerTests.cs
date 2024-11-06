@@ -10,14 +10,19 @@ using Microsoft.EntityFrameworkCore;
 using tp3.Models.Data;
 using tp3.Models.EntityFramework;
 using Xunit;
+using tp3.Models.Repository;
+using tp3.Models.DataManager;
 
 namespace tp3.Controllers.Tests
 {
     [TestClass()]
     public class UtilisateurControllerTests
     {
-        private readonly ApplicationDbContext _context;
-        private readonly UtilisateursController _controller;
+        //private readonly ApplicationDbContext _context;
+        //private readonly UtilisateursController _controller;
+        private UtilisateursController controller;
+        private ApplicationDbContext context;
+        private IDataRepository<Utilisateur> dataRepository;
 
         public UtilisateurControllerTests()
         {
@@ -26,10 +31,12 @@ namespace tp3.Controllers.Tests
                             .UseInMemoryDatabase(databaseName: "TestDatabase")
                             .Options;
 
-            _context = new ApplicationDbContext(options);
+            context = new ApplicationDbContext(options);
 
+            dataRepository = new UtilisateurManager(context);
+            controller = new UtilisateursController(dataRepository);
             // Initialisation du contrôleur avec le contexte
-            _controller = new UtilisateursController(_context);
+            // _controller = new UtilisateursController(_context);
         }
 
         // Exemple de test pour le POST
@@ -52,7 +59,7 @@ namespace tp3.Controllers.Tests
             };
 
             // Act : Effectuer l'appel à l'action Post
-            var result = await _controller.PostUtilisateur(utilisateur);
+            var result = await controller.PostUtilisateur(utilisateur);
 
         }
     }
