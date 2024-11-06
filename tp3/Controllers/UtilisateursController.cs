@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using tp3.Models.Data;
+using tp3.Models.DataManager;
 using tp3.Models.EntityFramework;
 
 namespace tp3.Controllers
@@ -14,25 +16,27 @@ namespace tp3.Controllers
     [ApiController]
     public class UtilisateursController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        // private readonly ApplicationDbContext _context;
+        private readonly UtilisateurManager utilisateurManager;
 
-        public UtilisateursController(ApplicationDbContext context)
+        public UtilisateursController(UtilisateurManager userManager)
         {
-            _context = context;
+            utilisateurManager = userManager;
         }
 
         // GET: api/Utilisateurs
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Utilisateur>>> GetUtilisateurs()
         {
-            return await _context.Utilisateurs.ToListAsync();
+            return utilisateurManager.GetAll();
         }
 
         // GET: api/Utilisateurs/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Utilisateur>> GetUtilisateur(int id)
         {
-            var utilisateur = await _context.Utilisateurs.FindAsync(id);
+            // var utilisateur = await _context.Utilisateurs.FindAsync(id);
+            var utilisateur = utilisateurManager.GetById(id);
 
             if (utilisateur == null)
             {
@@ -46,7 +50,8 @@ namespace tp3.Controllers
         [HttpGet("email/{email}")]
         public async Task<ActionResult<Utilisateur>> GetUtilisateurByEmail(string email)
         {
-            var utilisateur = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.Mail.ToLower() == email.ToLower());
+            // var utilisateur = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.Mail.ToLower() == email.ToLower());
+            var utilisateur = utilisateurManager.GetByString(email);
 
             if (utilisateur == null)
             {
@@ -66,25 +71,36 @@ namespace tp3.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(utilisateur).State = EntityState.Modified;
+            // _context.Entry(utilisateur).State = EntityState.Modified;
+            var userToUpdate = utilisateurManager.GetById(id);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UtilisateurExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!UtilisateurExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
 
-            return NoContent();
+            //return NoContent();
+
+            if (userToUpdate == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                utilisateurManager.Update(userToUpdate.Value, utilisateur);
+                return NoContent();
+            }
         }
 
         // POST: api/Utilisateurs
@@ -92,37 +108,46 @@ namespace tp3.Controllers
         [HttpPost]
         public async Task<ActionResult<Utilisateur>> PostUtilisateur(Utilisateur utilisateur)
         {
-            // Vérifier si le modèle est valide (en fonction des annotations)
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);  
+            //}
+
+            //_context.Utilisateurs.Add(utilisateur);
+            //await _context.SaveChangesAsync();
+
             if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);  // Renvoie une réponse 400 avec les erreurs de validation
+            { 
+                return BadRequest(ModelState);
             }
 
-            _context.Utilisateurs.Add(utilisateur);
-            await _context.SaveChangesAsync();
+            utilisateurManager.Add(utilisateur);
 
             return CreatedAtAction("GetUtilisateur", new { id = utilisateur.UtilisateurId }, utilisateur);
         }
 
         // DELETE: api/Utilisateurs/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteUtilisateur(int id)
-        //{
-        //    var utilisateur = await _context.Utilisateurs.FindAsync(id);
-        //    if (utilisateur == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Utilisateurs.Remove(utilisateur);
-        //    await _context.SaveChangesAsync();
-
-        //    return NoContent();
-        //}
-
-        private bool UtilisateurExists(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUtilisateur(int id)
         {
-            return _context.Utilisateurs.Any(e => e.UtilisateurId == id);
+            //var utilisateur = await _context.Utilisateurs.FindAsync(id);
+            var utilisateur = utilisateurManager.GetById(id);
+
+            if (utilisateur == null)
+            {
+                return NotFound();
+            }
+
+            //_context.Utilisateurs.Remove(utilisateur);
+            //await _context.SaveChangesAsync();
+            utilisateurManager.Delete(utilisateur.Value);
+
+            return NoContent();
         }
+
+        //private bool UtilisateurExists(int id)
+        //{
+        //    return _context.Utilisateurs.Any(e => e.UtilisateurId == id);
+        //}
     }
 }
