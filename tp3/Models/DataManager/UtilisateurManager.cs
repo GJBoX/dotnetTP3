@@ -8,36 +8,39 @@ namespace tp3.Models.DataManager
 {
     public class UtilisateurManager : IDataRepository<Utilisateur>
     {
-        readonly ApplicationDbContext? ApplicationDbContext;
-        public UtilisateurManager() { }
+        private readonly ApplicationDbContext applicationDbContext;
+
         public UtilisateurManager(ApplicationDbContext context)
         {
-            ApplicationDbContext = context;
-        }
-        public ActionResult<IEnumerable<Utilisateur>> GetAll()
-        {
-            return ApplicationDbContext.Utilisateurs.ToList();
-        }
-        public ActionResult<Utilisateur> GetById(int id)
-        {
-            return ApplicationDbContext.Utilisateurs.FirstOrDefault(u => u.UtilisateurId == id);
+            applicationDbContext = context;
         }
 
-        public ActionResult<Utilisateur> GetByString(string mail)
+        public async Task<ActionResult<IEnumerable<Utilisateur>>> GetAllAsync()
         {
-            return ApplicationDbContext.Utilisateurs.FirstOrDefault(u => u.Mail.ToUpper() == mail.ToUpper());
+            return await applicationDbContext.Utilisateurs.ToListAsync();
         }
 
-        public void Add(Utilisateur entity)
+        public async Task<ActionResult<Utilisateur>> GetByIdAsync(int id)
         {
-            ApplicationDbContext.Utilisateurs.Add(entity);
-            ApplicationDbContext.SaveChanges();
+            return await applicationDbContext.Utilisateurs.FirstOrDefaultAsync(u => u.UtilisateurId == id);
         }
 
-        public void Update(Utilisateur utilisateur, Utilisateur entity)
+        public async Task<ActionResult<Utilisateur>> GetByStringAsync(string mail)
         {
-            ApplicationDbContext.Entry(utilisateur).State = EntityState.Modified;
-            utilisateur.UtilisateurId = entity.UtilisateurId;
+            return await applicationDbContext.Utilisateurs.FirstOrDefaultAsync(u => u.Mail.ToUpper() == mail.ToUpper());
+        }
+
+        // Méthode AddAsync pour l'ajout asynchrone
+        public async Task AddAsync(Utilisateur entity)
+        {
+            await applicationDbContext.Utilisateurs.AddAsync(entity);
+            await applicationDbContext.SaveChangesAsync();
+        }
+
+        // Méthode UpdateAsync pour la mise à jour asynchrone
+        public async Task UpdateAsync(Utilisateur utilisateur, Utilisateur entity)
+        {
+            applicationDbContext.Entry(utilisateur).State = EntityState.Modified;
             utilisateur.Nom = entity.Nom;
             utilisateur.Prenom = entity.Prenom;
             utilisateur.Mail = entity.Mail;
@@ -50,13 +53,15 @@ namespace tp3.Models.DataManager
             utilisateur.Pwd = entity.Pwd;
             utilisateur.Mobile = entity.Mobile;
             utilisateur.NotesUtilisateur = entity.NotesUtilisateur;
-            ApplicationDbContext.SaveChanges();
+
+            await applicationDbContext.SaveChangesAsync();
         }
 
-        public void Delete(Utilisateur utilisateur)
+        // Méthode DeleteAsync pour la suppression asynchrone
+        public async Task DeleteAsync(Utilisateur utilisateur)
         {
-            ApplicationDbContext.Utilisateurs.Remove(utilisateur);
-            ApplicationDbContext.SaveChanges();
+            applicationDbContext.Utilisateurs.Remove(utilisateur);
+            await applicationDbContext.SaveChangesAsync();
         }
     }
 }

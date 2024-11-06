@@ -30,7 +30,7 @@ namespace tp3.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Utilisateur>>> GetUtilisateurs()
         {
-            return dataRepository.GetAll();
+            return await dataRepository.GetAllAsync();
         }
 
         // GET: api/Utilisateurs/5
@@ -38,7 +38,7 @@ namespace tp3.Controllers
         public async Task<ActionResult<Utilisateur>> GetUtilisateur(int id)
         {
             // var utilisateur = await _context.Utilisateurs.FindAsync(id);
-            var utilisateur = dataRepository.GetById(id);
+            var utilisateur = await dataRepository.GetByIdAsync(id);
 
             if (utilisateur == null)
             {
@@ -53,99 +53,98 @@ namespace tp3.Controllers
         public async Task<ActionResult<Utilisateur>> GetUtilisateurByEmail(string email)
         {
             // var utilisateur = await _context.Utilisateurs.FirstOrDefaultAsync(u => u.Mail.ToLower() == email.ToLower());
-            var utilisateur = dataRepository.GetByString(email);
+            var utilisateur = await dataRepository.GetByStringAsync(email);
 
             if (utilisateur == null)
             {
                 return NotFound();
             }
-
             return utilisateur;
         }
 
         // PUT: api/Utilisateurs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUtilisateur(int id, Utilisateur utilisateur)
-        {
-            if (id != utilisateur.UtilisateurId)
-            {
-                return BadRequest();
-            }
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutUtilisateur(int id, Utilisateur utilisateur)
+        //{
+        //    if (id != utilisateur.UtilisateurId)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            // _context.Entry(utilisateur).State = EntityState.Modified;
-            var userToUpdate = dataRepository.GetById(id);
+        //    // _context.Entry(utilisateur).State = EntityState.Modified;
+        //    var userTo Update = await dataRepository.GetByIdAsync(id);
 
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!UtilisateurExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
+        //    //try
+        //    //{
+        //    //    await _context.SaveChangesAsync();
+        //    //}
+        //    //catch (DbUpdateConcurrencyException)
+        //    //{
+        //    //    if (!UtilisateurExists(id))
+        //    //    {
+        //    //        return NotFound();
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        throw;
+        //    //    }
+        //    //}
 
-            //return NoContent();
+        //    //return NoContent();
 
-            if (userToUpdate == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                dataRepository.Update(userToUpdate.Value, utilisateur);
-                return NoContent();
-            }
-        }
+        //    if (userToUpdate == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    else
+        //    {
+        //        await dataRepository.Update(userToUpdate.Value, utilisateur);
+        //        return NoContent();
+        //    }
+        //}
 
         // POST: api/Utilisateurs
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Utilisateur>> PostUtilisateur(Utilisateur utilisateur)
-        {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);  
-            //}
+        //[HttpPost]
+        //public async Task<ActionResult<Utilisateur>> PostUtilisateur(Utilisateur utilisateur)
+        //{
+        //    //if (!ModelState.IsValid)
+        //    //{
+        //    //    return BadRequest(ModelState);  
+        //    //}
 
-            //_context.Utilisateurs.Add(utilisateur);
-            //await _context.SaveChangesAsync();
+        //    //_context.Utilisateurs.Add(utilisateur);
+        //    //await _context.SaveChangesAsync();
 
-            if (!ModelState.IsValid)
-            { 
-                return BadRequest(ModelState);
-            }
+        //    if (!ModelState.IsValid)
+        //    { 
+        //        return BadRequest(ModelState);
+        //    }
 
-            dataRepository.Add(utilisateur);
+        //    dataRepository.Add(utilisateur);
 
-            return CreatedAtAction("GetUtilisateur", new { id = utilisateur.UtilisateurId }, utilisateur);
-        }
+        //    return CreatedAtAction("GetUtilisateur", new { id = utilisateur.UtilisateurId }, utilisateur);
+        //}
 
         // DELETE: api/Utilisateurs/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUtilisateur(int id)
-        {
-            //var utilisateur = await _context.Utilisateurs.FindAsync(id);
-            var utilisateur = dataRepository.GetById(id);
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteUtilisateur(int id)
+        //{
+        //    //var utilisateur = await _context.Utilisateurs.FindAsync(id);
+        //    var utilisateur = dataRepository.GetById(id);
 
-            if (utilisateur == null)
-            {
-                return NotFound();
-            }
+        //    if (utilisateur == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            //_context.Utilisateurs.Remove(utilisateur);
-            //await _context.SaveChangesAsync();
-            dataRepository.Delete(utilisateur.Value);
+        //    //_context.Utilisateurs.Remove(utilisateur);
+        //    //await _context.SaveChangesAsync();
+        //    dataRepository.Delete(utilisateur.Value);
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         //private bool UtilisateurExists(int id)
         //{
