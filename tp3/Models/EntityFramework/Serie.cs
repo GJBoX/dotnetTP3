@@ -25,7 +25,7 @@ namespace tp3.Models.EntityFramework
         public int? NbEpisodes { get; set; }
 
         [Column("ser_anneecreation")]
-        public int? AnneeCreation { get; set; }
+        public DateTime? AnneeCreation { get; set; }
 
         [Column("ser_network")]
         [StringLength(50)]
