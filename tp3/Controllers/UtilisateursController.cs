@@ -99,20 +99,20 @@ namespace tp3.Controllers
         }
 
         // DELETE: api/Utilisateurs/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUtilisateur(int id)
-        {
-            var utilisateur = await _context.Utilisateurs.FindAsync(id);
-            if (utilisateur == null)
-            {
-                return NotFound();
-            }
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteUtilisateur(int id)
+        //{
+        //    var utilisateur = await _context.Utilisateurs.FindAsync(id);
+        //    if (utilisateur == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            _context.Utilisateurs.Remove(utilisateur);
-            await _context.SaveChangesAsync();
+        //    _context.Utilisateurs.Remove(utilisateur);
+        //    await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         private bool UtilisateurExists(int id)
         {
