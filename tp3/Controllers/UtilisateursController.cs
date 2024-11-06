@@ -92,6 +92,12 @@ namespace tp3.Controllers
         [HttpPost]
         public async Task<ActionResult<Utilisateur>> PostUtilisateur(Utilisateur utilisateur)
         {
+            // Vérifier si le modèle est valide (en fonction des annotations)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);  // Renvoie une réponse 400 avec les erreurs de validation
+            }
+
             _context.Utilisateurs.Add(utilisateur);
             await _context.SaveChangesAsync();
 

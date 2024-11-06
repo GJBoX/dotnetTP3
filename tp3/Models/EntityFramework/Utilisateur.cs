@@ -58,7 +58,7 @@ namespace tp3.Models.EntityFramework
         public float? Longitude { get; set; }
 
         [Column("utl_datecreation")]
-        public DateTime? DateCreation { get; set; } // Valeur par défaut définie dans OnModelCreating
+        public DateTime? DateCreation { get; set; } = DateTime.UtcNow; // Valeur par défaut définie dans OnModelCreating
 
         public virtual ICollection<Notation> NotesUtilisateur { get; set; } = new List<Notation>();
     }
