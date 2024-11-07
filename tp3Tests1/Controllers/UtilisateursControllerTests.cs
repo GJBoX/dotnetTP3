@@ -12,6 +12,8 @@ using tp3.Models.EntityFramework;
 using Xunit;
 using tp3.Models.Repository;
 using tp3.Models.DataManager;
+using Humanizer;
+using Moq;
 
 namespace tp3.Controllers.Tests
 {
@@ -41,26 +43,40 @@ namespace tp3.Controllers.Tests
 
         // Exemple de test pour le POST
         [Fact]
-        public async Task PostUtilisateur_ValidUtilisateur_ReturnsCreatedAtActionResult()
+        public void Postutilisateur_ModelValidated_CreationOK_AvecMoq()
         {
             // Arrange : Créer un utilisateur fictif à ajouter
-            var utilisateur = new Utilisateur
+            //Random rnd = new Random();
+            //int chiffre = rnd.Next(1,1000000000);
+
+            var mockRepository = new Mock<IDataRepository<Utilisateur>>();
+            var userController = new UtilisateursController(mockRepository.Object);
+
+            Utilisateur user = new Utilisateur
             {
-                Nom = "DURAND",
-                Prenom = "Marc",
-                Mail = "marc.durand@example.com",
-                Pwd = "Passwor1!",
+                Nom = "POISSON",
+                Prenom = "Pascal",
+                Mobile = "1",
+                Mail = "poisson@gmail.com",
+                Pwd = "Toto12!",
                 Rue = "Chemin de Bellevue",
                 CodePostal = "74940",
-                Ville = "Annecy",
+                Ville = "Annecy-le-Vieux",
                 Pays = "France",
-                Latitude = 45.1234f,
-                Longitude = 6.2345f
+                Latitude = null,
+                Longitude = null
             };
 
             // Act : Effectuer l'appel à l'action Post
-            var result = await controller.PostUtilisateur(utilisateur);
+            var actionResult = userController.PostUtilisateur(user).Result;
 
+            // Assert 
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsInstanceOfType(actionResult, typeof(ActionResult<Utilisateur>), "Pas un ActionResult<Utilisateur>");
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsInstanceOfType(actionResult.Result, typeof(CreatedAtActionResult), "Pas un CreatedAtActionResult");
+            var result = actionResult.Result as CreatedAtActionResult;
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsInstanceOfType(result.Value, typeof(Utilisateur), "Pas un Utilisateur");
+            user.UtilisateurId = ((Utilisateur)result.Value).UtilisateurId;
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(user, (Utilisateur)result.Value, "Utilisateurs pas identiques");
         }
     }
 }

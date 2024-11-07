@@ -106,26 +106,26 @@ namespace tp3.Controllers
 
         // POST: api/Utilisateurs
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPost]
-        //public async Task<ActionResult<Utilisateur>> PostUtilisateur(Utilisateur utilisateur)
-        //{
-        //    //if (!ModelState.IsValid)
-        //    //{
-        //    //    return BadRequest(ModelState);  
-        //    //}
+        [HttpPost]
+        public async Task<ActionResult<Utilisateur>> PostUtilisateur(Utilisateur utilisateur)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);  
+            //}
 
-        //    //_context.Utilisateurs.Add(utilisateur);
-        //    //await _context.SaveChangesAsync();
+            //_context.Utilisateurs.Add(utilisateur);
+            //await _context.SaveChangesAsync();
 
-        //    if (!ModelState.IsValid)
-        //    { 
-        //        return BadRequest(ModelState);
-        //    }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    dataRepository.Add(utilisateur);
+            await dataRepository.AddAsync(utilisateur);
 
-        //    return CreatedAtAction("GetUtilisateur", new { id = utilisateur.UtilisateurId }, utilisateur);
-        //}
+            return CreatedAtAction("GetUtilisateur", new { id = utilisateur.UtilisateurId }, utilisateur);
+        }
 
         // DELETE: api/Utilisateurs/5
         //[HttpDelete("{id}")]
