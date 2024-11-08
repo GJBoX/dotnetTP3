@@ -21,6 +21,32 @@
   },
   {
     "ContainingType": "tp3.Controllers.UtilisateursController",
+    "Method": "PostUtilisateur",
+    "RelativePath": "api/Utilisateurs",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "utilisateur",
+        "Type": "tp3.Models.EntityFramework.Utilisateur",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "tp3.Models.EntityFramework.Utilisateur",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "tp3.Controllers.UtilisateursController",
     "Method": "GetUtilisateur",
     "RelativePath": "api/Utilisateurs/{id}",
     "HttpMethod": "GET",

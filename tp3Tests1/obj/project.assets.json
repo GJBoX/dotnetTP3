@@ -3092,12 +3092,23 @@
           }
         }
       },
+      "Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Shared.dll": {}
+        }
+      },
       "tp3/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "8.0.6",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.10",
+          "Shared": "1.0.0",
           "Swashbuckle.AspNetCore": "6.9.0"
         },
         "compile": {
@@ -8609,6 +8620,11 @@
         "xunit.extensibility.execution.2.9.2.nupkg.sha512",
         "xunit.extensibility.execution.nuspec"
       ]
+    },
+    "Shared/1.0.0": {
+      "type": "project",
+      "path": "../Shared/Shared.csproj",
+      "msbuildProject": "../Shared/Shared.csproj"
     },
     "tp3/1.0.0": {
       "type": "project",

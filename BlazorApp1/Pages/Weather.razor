@@ -1,0 +1,49 @@
+﻿@page "/weather"
+@using BlazorApp1.Interface
+@inject IService<Utilisateur> UserService
+
+<PageTitle>Utilisateurs</PageTitle>
+
+<h1>Liste des Utilisateurs</h1>
+
+<p>Ce composant démontre le chargement des données utilisateurs depuis l'API.</p>
+
+@if (utilisateurs == null)
+{
+    <p><em>Chargement en cours...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Ville</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var utilisateur in utilisateurs)
+            {
+                <tr>
+                    <td>@utilisateur.Nom</td>
+                    <td>@utilisateur.Prenom</td>
+                    <td>@utilisateur.Mail</td>
+                    <td>@utilisateur.Mobile</td>
+                    <td>@utilisateur.Ville</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Utilisateur>? utilisateurs;
+
+    protected override async Task OnInitializedAsync()
+    {
+        utilisateurs = await UserService.GetAllAsync();
+    }
+}

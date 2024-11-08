@@ -6,15 +6,24 @@ using tp3.Models.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Ajouter une politique CORS pour autoriser les requêtes depuis l'application Blazor
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowBlazorClient",
+        policy => policy
+            .WithOrigins("http://localhost:5000") // Remplacez par l'URL de l'application Blazor
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
 
+// Add services to the container.
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<ApplicationDbContext>(e=>
+builder.Services.AddDbContext<ApplicationDbContext>(e =>
     e.UseNpgsql(builder.Configuration.GetConnectionString("SeriesDbContextPgsql")));
 builder.Services.AddScoped<IDataRepository<Utilisateur>, UtilisateurManager>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,6 +34,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Activer CORS en appliquant la politique définie
+app.UseCors("AllowBlazorClient");
 
 app.UseAuthorization();
 

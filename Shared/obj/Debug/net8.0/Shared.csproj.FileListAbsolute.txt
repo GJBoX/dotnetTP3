@@ -1,0 +1,5 @@
+C:\Users\julie\source\repos\tp3\Shared\obj\Debug\net8.0\Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\julie\source\repos\tp3\Shared\obj\Debug\net8.0\Shared.AssemblyInfoInputs.cache
+C:\Users\julie\source\repos\tp3\Shared\obj\Debug\net8.0\Shared.AssemblyInfo.cs
+C:\Users\julie\source\repos\tp3\Shared\obj\Debug\net8.0\Shared.csproj.CoreCompileInputs.cache
+C:\Users\julie\source\repos\tp3\Shared\obj\Debug\net8.0\Shared.sourcelink.json
